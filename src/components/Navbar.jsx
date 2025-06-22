@@ -48,8 +48,8 @@ const Navbar = () => {
 
         {/* Right: Sign In + Mobile Dropdown */}
         <div className="flex items-center gap-2">
-          <Link to="/signin">
-            <button className="btn btn-sm btn-outline">Sign In</button>
+          <Link to="/login">
+            <button className="btn btn-sm btn-outline">Log In</button>
           </Link>
 
           {/* Mobile dropdown menu */}

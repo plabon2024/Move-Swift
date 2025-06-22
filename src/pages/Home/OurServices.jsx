@@ -56,6 +56,10 @@ const OurServices = () => {
           {services.map((service, index) => (
             <div
               key={index}
+              data-aos="fade-up"
+     
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="2000"
               className="w-80 mx-auto  bg-white card hover:bg-primary p-6 shadow-md hover:shadow-xl hover:scale-105 transition duration-300 group"
             >
               <div className="flex flex-col items-center gap-4">
