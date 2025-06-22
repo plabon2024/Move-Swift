@@ -1,4 +1,32 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-   themes: light --default
- }
+  themes: light, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #84d364;
+  --color-secondary: #000;
+}
+
+/* Base style for all slides */
+.custom-swiper .swiper-slide {
+  opacity: 0.2;
+  transform: translateY(40px);
+  transition: all 0.4s ease;
+}
+
+/* Previous and next slides */
+.custom-swiper .swiper-slide-prev,
+.custom-swiper .swiper-slide-next {
+  opacity: 0.7;
+  transform: translateY(60px);
+}
+
+/* Active (center) slide */
+.custom-swiper .swiper-slide-active {
+  opacity: 1;
+  transform: translateY(); /* stays centered */
+  z-index: 10;
+}

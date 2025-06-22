@@ -35,14 +35,14 @@ const howItWorksData = [
 
 const HowItWorksSection = () => {
   return (
-    <section className="py-16 px-4 bg-base-100">
+    <section className="py-16 px-4">
       <div className=" container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-12">How It Works</h2>
         <div className=" container flex flex-wrap gap-5 justify-center mx-auto">
           {howItWorksData.map((item, index) => (
             <div
               key={index}
-              className=" card bg-base-200 w-80 shadow-md hover:shadow-lg transition p-6 text-left"
+              className=" card bg-white hover:scale-105 w-80 shadow-md hover:shadow-lg transition p-6 text-left"
             >
               <div className="flex flex-col  items-start gap-4 space-y-5 ">
                 <item.icon size={50} />

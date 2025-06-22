@@ -1,17 +1,26 @@
 import React from "react";
-import Navbar from "../../components/Navbar";
+
 import Banner from "../../components/Banner";
 import OurServices from "./OurServices";
 import HowItWorksSection from "./HowItWorks";
+import ClientMarquee from "./ClientMarquee";
+import Features from "./Features";
+import Commitment from "./Commitment";
+import Slides from "./Slides";
+import Faq from "./Faq";
 
 const Home = () => {
-  return (
-    <div className="container mx-auto">
-      <Navbar></Navbar>
+  return (<>
       <Banner></Banner>
       <HowItWorksSection></HowItWorksSection>
       <OurServices></OurServices>
-    </div>
+      <ClientMarquee></ClientMarquee>
+      <Features></Features>
+      <Commitment></Commitment>
+
+      <Slides></Slides>
+      <Faq></Faq>
+  </>
   );
 };
 

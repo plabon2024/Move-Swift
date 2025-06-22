@@ -4,7 +4,7 @@ import Logo from "./Logo";
 
 const Navbar = () => {
   return (
-    <div className="fixed top-0 left-0 w-full z-50 backdrop-blur-sm">
+    <div className="fixed top-2 left-0 w-full z-50  backdrop-blur-sm">
       <div className="navbar h-20 container mx-auto backdrop-blur-md px-4  rounded-2xl  shadow-md justify-between ">
         {/* Left: Logo & Name */}
         <Logo></Logo>
@@ -13,7 +13,7 @@ const Navbar = () => {
           <ul className="flex gap-5 px-1 text-lg ">
             <li>
               <NavLink
-                className="hover:scale-110  hover:font-semibold transition-transform duration-300"
+                className="hover:scale-105 hover:underline hover:underline-offset-4  hover:font-semibold transition-transform duration-300"
                 to="/"
               >
                 Home
@@ -21,7 +21,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                className="hover:scale-110  hover:font-semibold transition-transform duration-300"
+                className="hover:scale-105 hover:underline hover:underline-offset-4  hover:font-semibold transition-transform duration-300"
                 to="/features"
               >
                 Features
@@ -29,7 +29,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                className="hover:scale-110  hover:font-semibold transition-transform duration-300"
+                className="hover:scale-105 hover:underline hover:underline-offset-4  hover:font-semibold transition-transform duration-300"
                 to="/pricing"
               >
                 Pricing
