@@ -6,7 +6,7 @@ const Auth = () => {
   return (
     <div className="px-4  min-h-screen bg-base-100">
       {/* Logo Top Left */}
-      <div className="absolute top-2 left-2 m-10">
+      <div className="absolute top-1 left-2 m-10">
         <Logo />
       </div>
       {/* Auth Content */}
@@ -26,7 +26,7 @@ const Auth = () => {
           {/* Logo Top Left inside form section */}
 
           {/* Form */}
-          <div className="w-full max-w-sm py-10 mx-auto">
+          <div className="w-full max-w-sm py-20 mx-auto">
             <Outlet />
           </div>
         </div>

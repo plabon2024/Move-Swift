@@ -10,17 +10,28 @@ const Login = () => {
           <p>Login with MoveSwift</p>
           <fieldset className="fieldset">
             <label className="label text-black  text-base">Email</label>
-            <input type="email" className="input focus:outline-none" placeholder="Email" />
+            <input
+              type="email"
+              className="input focus:outline-none"
+              placeholder="Email"
+            />
             <label className="label text-black  text-base">Password</label>
-            <input type="password" className="input focus:outline-none" placeholder="Password" />
+            <input
+              type="password"
+              className="input focus:outline-none"
+              placeholder="Password"
+            />
             <div>
-              <a className="link link-hover">Forgot password?</a>
+              {" "}
+              <Link to={'/forgotpassword'}>
+              <button className="link link-hover">Forgot password?</button>
+              </Link>
             </div>
             <button className="btn btn-primary mt-4 text-white">Login</button>
             <p>
               Don’t have any account?{" "}
-              <Link to={'/register'}>
-              <span className="hover:underline text-blue-500">Register</span>{" "}
+              <Link to={"/register"}>
+                <span className="hover:underline text-blue-500">Register</span>{" "}
               </Link>
             </p>
           </fieldset>
