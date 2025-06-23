@@ -1,43 +1,75 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../context/Authcontext";
 
 const Login = () => {
+  const location=useLocation()
+  const navigaete=useNavigate()
+  const { user } = useContext(AuthContext);
+  const { signInWithGoogle, signIn } = useContext(AuthContext);
+  const handlegooglesignin = () => {
+    signInWithGoogle();
+  };
+  const handleSignin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    signIn(email, password);
+  };
+ useEffect(() => {
+    if (user && user.email) {
+    navigaete(location.state?location.state:'/')
+    }
+  }, [user, navigaete, location]);
   return (
     <div>
       <div className="card bg-base-100  shadow-lg">
         <div className="card-body">
           <h1 className="text-4xl font-bold">Welcome Back</h1>
           <p>Login with MoveSwift</p>
-          <fieldset className="fieldset">
-            <label className="label text-black  text-base">Email</label>
-            <input
-              type="email"
-              className="input focus:outline-none"
-              placeholder="Email"
-            />
-            <label className="label text-black  text-base">Password</label>
-            <input
-              type="password"
-              className="input focus:outline-none"
-              placeholder="Password"
-            />
-            <div>
-              {" "}
-              <Link to={'/forgotpassword'}>
-              <button className="link link-hover">Forgot password?</button>
-              </Link>
-            </div>
-            <button className="btn btn-primary mt-4 text-white">Login</button>
-            <p>
-              Don’t have any account?{" "}
-              <Link to={"/register"}>
-                <span className="hover:underline text-blue-500">Register</span>{" "}
-              </Link>
-            </p>
-          </fieldset>
+
+          <form onSubmit={handleSignin}>
+            <fieldset className="fieldset">
+              <label className="label text-black  text-base">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="input focus:outline-none"
+                placeholder="Email"
+              />
+              <label className="label text-black  text-base">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="input focus:outline-none"
+                placeholder="Password"
+              />
+              <div>
+                {" "}
+                <Link to={"/forgotpassword"}>
+                  <button className="link link-hover">Forgot password?</button>
+                </Link>
+              </div>
+              <button  type="submit" className="btn btn-primary mt-4 text-white">
+                Login
+              </button>
+              <p>
+                Don’t have any account?{" "}
+                <Link to={"/register"}>
+                  <span className="hover:underline text-blue-500">
+                    Register
+                  </span>{" "}
+                </Link>
+              </p>
+            </fieldset>
+          </form>
           <div className="divider">OR</div>
 
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handlegooglesignin}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import Logo from "./Logo";
+import { AuthContext } from "../context/Authcontext";
 
 const Navbar = () => {
+  const {user,logout}=useContext(AuthContext)
+  const handlesignout=()=>{
+    logout()
+  }
   return (
     <div className="fixed top-2 left-0 w-full z-50  backdrop-blur-sm">
       <div className="navbar h-20 container mx-auto backdrop-blur-md px-4  rounded-2xl  shadow-md justify-between ">
@@ -48,9 +53,13 @@ const Navbar = () => {
 
         {/* Right: Sign In + Mobile Dropdown */}
         <div className="flex items-center gap-2">
-          <Link to="/login">
-            <button className="btn btn-sm btn-outline">Log In</button>
-          </Link>
+          {user ? (
+            <button onClick={handlesignout} className="btn btn-sm btn-outline">Log out</button>
+          ) : (
+            <Link to="/login">
+              <button className="btn btn-sm btn-outline">Log In</button>
+            </Link>
+          )}
 
           {/* Mobile dropdown menu */}
           <div className="dropdown dropdown-end lg:hidden">

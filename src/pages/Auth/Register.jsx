@@ -1,46 +1,90 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../context/Authcontext";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase/firebase.init";
 
 const Register = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { signUp, setUser, signInWithGoogle, user } = useContext(AuthContext);
+  const handlegoogleSignup = () => {
+    signInWithGoogle();
+  };
+  const handlesignUp = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    signUp(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        });
+      })
+      .then(() => {
+        setUser({ ...user, displayName: name });
+        navigate(`${location.state ? location.state : "/"}`);
+      });
+  };
+
+  useEffect(() => {
+    if (user && user.email) {
+      navigate(location.state ? location.state : "/");
+    }
+  }, [user, navigate, location]);
   return (
     <div>
       <div className="card bg-base-100  shadow-lg">
         <div className="card-body">
           <h1 className="text-4xl font-bold">Create an Account</h1>
           <p>Register with MoveSwift</p>
-          <fieldset className="fieldset">
-            <img src="/assets/Frame 2087326255.svg" alt="" />
-            <label className="label text-black  text-base ">Name</label>
-            <input
-              type="name"
-              className="input focus:outline-none"
-              placeholder="Name"
-            />
-            <label className="label text-black  text-base">Email</label>
-            <input
-              type="email"
-              className="input focus:outline-none"
-              placeholder="Email"
-            />
-            <label className="label text-black  text-base">Password</label>
-            <input
-              type="password"
-              className="input focus:outline-none"
-              placeholder="Password"
-            />
-            <div>
-            </div>
-            <button className="btn btn-primary mt-4 text-white" >Register</button>
-            <p>
-              Already have an account?
-              <Link to={"/login"}>
-                <span className="hover:underline text-blue-500"> Login</span>{" "}
-              </Link>
-            </p>
-          </fieldset>
+          <form onSubmit={handlesignUp}>
+            <fieldset className="fieldset">
+              <img src="/assets/Frame 2087326255.svg" alt="" />
+              <label className="label text-black  text-base ">Name</label>
+              <input
+                type="name"
+                name="name"
+                className="input focus:outline-none"
+                placeholder="Name"
+              />
+              <label className="label text-black  text-base">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="input focus:outline-none"
+                placeholder="Email"
+              />
+              <label className="label text-black  text-base">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="input focus:outline-none"
+                placeholder="Password"
+              />
+              <div></div>
+              <button type="submit" className="btn btn-primary mt-4 text-white">
+                Register
+              </button>
+              <p>
+                Already have an account?
+                <Link to={"/login"}>
+                  <span className="hover:underline text-blue-500"> Login</span>{" "}
+                </Link>
+              </p>
+            </fieldset>
+          </form>
+
           <div className="divider">OR</div>
 
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handlegoogleSignup}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="16"

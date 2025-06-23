@@ -49,7 +49,7 @@ const services = [
 
 const OurServices = () => {
   return (
-    <section className="py-16 px-4 bg-gray-500 rounded-2xl">
+    <section className="py-16 px-4 bg-gray-300 rounded-2xl">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -57,9 +57,8 @@ const OurServices = () => {
             <div
               key={index}
               data-aos="fade-up"
-     
-     data-aos-easing="ease-out-cubic"
-     data-aos-duration="2000"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="2000"
               className="w-80 mx-auto  bg-white card hover:bg-primary p-6 shadow-md hover:shadow-xl hover:scale-105 transition duration-300 group"
             >
               <div className="flex flex-col items-center gap-4">

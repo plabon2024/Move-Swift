@@ -7,13 +7,13 @@ const Footer = () => {
       <footer className="footer footer-horizontal footer-center bg-black text-primary-content p-10 rounded-2xl mx-auto container mt-20">
         <aside className="flex flex-col items-center space-y-2">
           <Logo></Logo>
-          <p className="font-bold text-center">
+          <div className="font-bold text-center">
             <p className="w-sm">
               Enjoy fast, reliable parcel delivery with real-time tracking and
               zero hassle. From personal packages to business shipments — we
               deliver on time, every time.
             </p>
-          </p>
+          </div>
           <p className="text-sm text-center">
             &copy; {new Date().getFullYear()} - All rights reserved
           </p>
