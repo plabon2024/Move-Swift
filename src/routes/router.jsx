@@ -5,7 +5,7 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import Auth from "../layout/Auth";
 import ForgotPass from "../pages/Auth/ForgotPass";
-import Coverage from "../pages/Coverage";
+import Coverage from "../pages/coverage/Coverage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +19,7 @@ const router = createBrowserRouter([
       {
         path:'/coverage',
         Component:Coverage,
+        loader: () => fetch('/data/warehouses.json')
       }
     ],
   },

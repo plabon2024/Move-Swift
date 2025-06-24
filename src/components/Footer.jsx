@@ -8,7 +8,7 @@ const Footer = () => {
         <aside className="flex flex-col items-center space-y-2">
           <Logo></Logo>
           <div className="font-bold text-center">
-            <p className="w-sm">
+            <p>
               Enjoy fast, reliable parcel delivery with real-time tracking and
               zero hassle. From personal packages to business shipments — we
               deliver on time, every time.

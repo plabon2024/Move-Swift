@@ -1,74 +1,93 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../context/Authcontext";
 
 const Login = () => {
-  const location=useLocation()
-  const navigaete=useNavigate()
-  const { user } = useContext(AuthContext);
-  const { signInWithGoogle, signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signInWithGoogle, signIn } = useContext(AuthContext);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // Submit handler using React Hook Form
+  const onSubmit = async (data) => {
+    try {
+      await signIn(data.email, data.password);
+    } catch (err) {
+      console.error("Login failed", err);
+    }
+  };
+
   const handlegooglesignin = () => {
     signInWithGoogle();
   };
-  const handleSignin = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    signIn(email, password);
-  };
- useEffect(() => {
+
+  useEffect(() => {
     if (user && user.email) {
-    navigaete(location.state?location.state:'/')
+      navigate(location.state ? location.state : "/");
     }
-  }, [user, navigaete, location]);
+  }, [user, navigate, location]);
+
   return (
-    <div>
-      <div className="card bg-base-100  shadow-lg">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="card bg-base-100 shadow-lg w-full max-w-md">
         <div className="card-body">
           <h1 className="text-4xl font-bold">Welcome Back</h1>
-          <p>Login with MoveSwift</p>
+          <p className="mb-4">Login with MoveSwift</p>
 
-          <form onSubmit={handleSignin}>
-            <fieldset className="fieldset">
-              <label className="label text-black  text-base">Email</label>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <fieldset className="fieldset space-y-3">
+              <label className="label text-black text-base">Email</label>
               <input
                 type="email"
-                name="email"
+                {...register("email", { required: "Email is required" })}
                 className="input focus:outline-none"
                 placeholder="Email"
               />
-              <label className="label text-black  text-base">Password</label>
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p>
+              )}
+
+              <label className="label text-black text-base">Password</label>
               <input
                 type="password"
-                name="password"
+                {...register("password", { required: "Password is required" })}
                 className="input focus:outline-none"
                 placeholder="Password"
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm">{errors.password.message}</p>
+              )}
+
               <div>
-                {" "}
-                <Link to={"/forgotpassword"}>
-                  <button className="link link-hover">Forgot password?</button>
+                <Link to="/forgotpassword" className="link link-hover">
+                  Forgot password?
                 </Link>
               </div>
-              <button  type="submit" className="btn btn-primary mt-4 text-white">
+
+              <button type="submit" className="btn btn-primary mt-4 text-white w-full">
                 Login
               </button>
-              <p>
-                Don’t have any account?{" "}
-                <Link to={"/register"}>
-                  <span className="hover:underline text-blue-500">
-                    Register
-                  </span>{" "}
+
+              <p className="mt-2">
+                Don’t have an account?{" "}
+                <Link to="/register" className="text-blue-500 hover:underline">
+                  Register
                 </Link>
               </p>
             </fieldset>
           </form>
+
           <div className="divider">OR</div>
 
           <button
             onClick={handlegooglesignin}
-            className="btn bg-white text-black border-[#e5e5e5]"
+            className="btn bg-white text-black border-[#e5e5e5] w-full"
           >
             <svg
               aria-label="Google logo"
@@ -76,6 +95,7 @@ const Login = () => {
               height="16"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
+              className="mr-2"
             >
               <g>
                 <path d="m0 0H512V512H0" fill="#fff"></path>

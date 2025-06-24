@@ -3,32 +3,42 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../context/Authcontext";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
   const location = useLocation();
   const navigate = useNavigate();
   const { signUp, setUser, signInWithGoogle, user } = useContext(AuthContext);
   const handlegoogleSignup = () => {
     signInWithGoogle();
   };
-  const handlesignUp = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    signUp(email, password)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
-        updateProfile(auth.currentUser, {
-          displayName: name,
-        });
-      })
-      .then(() => {
-        setUser({ ...user, displayName: name });
-        navigate(`${location.state ? location.state : "/"}`);
+
+  const handlesignUp = async (data) => {
+    const { name, email, password } = data;
+
+    try {
+      const result = await signUp(email, password);
+      const user = result.user;
+
+      // Update display name
+      await updateProfile(user, {
+        displayName: name,
       });
+
+      // Optionally update local user state (if needed)
+      setUser({ ...user, displayName: name });
+
+      // Navigate after successful signup
+      navigate(location.state ? location.state : "/");
+    } catch (error) {
+      console.error("Signup error:", error);
+      // Optionally show error to user with toast or alert
+    }
   };
 
   useEffect(() => {
@@ -42,30 +52,48 @@ const Register = () => {
         <div className="card-body">
           <h1 className="text-4xl font-bold">Create an Account</h1>
           <p>Register with MoveSwift</p>
-          <form onSubmit={handlesignUp}>
+          <form onSubmit={handleSubmit(handlesignUp)}>
             <fieldset className="fieldset">
               <img src="/assets/Frame 2087326255.svg" alt="" />
               <label className="label text-black  text-base ">Name</label>
               <input
                 type="name"
-                name="name"
+                {...register("name", { required: "Name is required" })}
                 className="input focus:outline-none"
                 placeholder="Name"
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm">{errors.name.message}</p> // ✅ Error message
+              )}
               <label className="label text-black  text-base">Email</label>
               <input
                 type="email"
-                name="email"
+                {...register("email", { required: "Email is required" })}
                 className="input focus:outline-none"
                 placeholder="Email"
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm">{errors.email.message}</p> // ✅ Error message
+              )}
               <label className="label text-black  text-base">Password</label>
               <input
                 type="password"
-                name="password"
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+                    message:
+                      "Password must be at least 8 characters, include uppercase, lowercase, number, and special character",
+                  },
+                })}
                 className="input focus:outline-none"
                 placeholder="Password"
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p> // ✅ Error message
+              )}
               <div></div>
               <button type="submit" className="btn btn-primary mt-4 text-white">
                 Register
