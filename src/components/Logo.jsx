@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Logo = () => {
   return (
     <div>
-      <Link to="/" className="flex items-end justify-end  text-xl font-bold">
+      <Link to="/" className="flex justify-start items-end text-xl font-bold">
         <img
           src="/assets/logo.png"
           alt="Logo"

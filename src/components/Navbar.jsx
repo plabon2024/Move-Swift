@@ -35,17 +35,17 @@ const Navbar = () => {
             <li>
               <NavLink
                 className="hover:scale-105 hover:underline hover:underline-offset-4  hover:font-semibold transition-transform duration-300"
-                to="/pricing"
+                to="/sendParcel"
               >
-                Pricing
+                Send Precel
               </NavLink>
             </li>
             <li>
               <NavLink
                 className="hover:scale-110  hover:font-semibold transition-transform duration-300"
-                to="/about"
+                to="/dashbord"
               >
-                About
+                dashbord
               </NavLink>
             </li>
           </ul>
@@ -93,7 +93,7 @@ const Navbar = () => {
                 <Link to="/pricing">Pricing</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/dashbord">dashbord</Link>
               </li>
               <li>
                 <Link to="/signin">Sign In</Link>
